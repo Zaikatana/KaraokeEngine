@@ -1,7 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
+import { SearchForm } from "./components/SearchForm";
 
 export const App: React.FC = () => {
-  return <div className="ui container">
-    <h1>Website in Progress</h1>
-  </div>;
+  const [videos, setVideos] = useState<unknown[]>([]);
+  const [selectedVideo, setSelectedVideo] = useState<unknown>(null);
+
+  const onTermSubmit = (term: string): void => {
+    console.log(`${term} カラオケ`)
+  }
+
+  return (
+    <div className="ui container">
+      <SearchForm onTermSubmit={onTermSubmit} />
+      <h1>Website in Progress</h1>
+    </div>
+  );
 };
