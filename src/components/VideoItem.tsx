@@ -1,9 +1,10 @@
 import React from "react";
+import { Video } from "../types/Video";
 import './VideoItem.css';
 
 export const VideoItem: React.FC<{
-  video: any;
-  onVideoSelect(video: any): void;
+  video: Video;
+  onVideoSelect(video: Video): void;
 }> = (props) => {
   const { video, onVideoSelect } = props;
 

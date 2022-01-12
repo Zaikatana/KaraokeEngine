@@ -1,6 +1,7 @@
 import React from "react";
+import { Video } from "../types/Video";
 
-export const VideoDetail: React.FC<{video: any}> = (props) => {
+export const VideoDetail: React.FC<{video: Video | null}> = (props) => {
     const { video } = props;
     
     if (!video) {

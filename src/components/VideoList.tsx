@@ -1,13 +1,14 @@
 import React from "react";
+import { Video } from "../types/Video";
 import { VideoItem } from "./VideoItem";
 
 export const VideoList: React.FC<{
-  videos: any[];
-  onVideoSelect(video: any): void;
+  videos: Video[];
+  onVideoSelect(video: Video): void;
 }> = (props) => {
   const { videos, onVideoSelect } = props;
 
-  const renderedList = videos.map((video: any) => {
+  const renderedList = videos.map((video: Video) => {
     return (
       <VideoItem
         key={video.id.videoId}
