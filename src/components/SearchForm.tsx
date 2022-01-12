@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 export const SearchForm: React.FC<{
-  onTermSubmit(term: string): void;
+  onTermSubmit(term: string): Promise<void>;
 }> = (props) => {
   const { onTermSubmit } = props;
   const [term, setTerm] = useState<string>("");
