@@ -10,6 +10,7 @@ export const App: React.FC = () => {
   const [videos, setVideos] = useState<Video[]>([]);
   const [videoHistory, setVideoHistory] = useState<Video[]>([]);
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
+  const [videoQueue, setVideoQueue] = useState<Video[]>([]);
   const youtubeService: AxiosInstance = YoutubeService.createYoutubeInstance();
 
   // UC1tk9F5-MGXEq4LWnjmrtpA
@@ -25,15 +26,35 @@ export const App: React.FC = () => {
     });
 
     setVideos(response.data.items);
-    videoHistory.push(response.data.items[0] ? response.data.items[0] : null);
-    setVideoHistory(videoHistory);
-    setSelectedVideo(response.data.items[0] ? response.data.items[0] : null);
+    if (!selectedVideo) {
+      videoHistory.push(response.data.items[0] ? response.data.items[0] : null);
+      setVideoHistory([...videoHistory]);
+      setSelectedVideo(response.data.items[0] ? response.data.items[0] : null);
+    }
   };
 
   const onVideoSelect = (video: Video) => {
-    setSelectedVideo(video);
+    videoQueue.push(video);
+    setVideoQueue([...videoQueue]);
+  };
+
+  const onVideoSelectQueue = (video: Video) => {
+    videoQueue.shift();
+    setVideoQueue([...videoQueue]);
     videoHistory.push(video);
-    setVideoHistory(videoHistory);
+    setVideoHistory([...videoHistory]);
+    setSelectedVideo(video);
+  };
+
+  const onVideoEnd = () => {
+    const nextVideo = videoQueue.shift();
+    if (nextVideo) {
+      videoHistory.push(nextVideo);
+      setVideoHistory([...videoHistory]);
+      setVideoQueue([...videoQueue]);
+      setSelectedVideo(nextVideo);
+      
+    }
   };
 
   return (
@@ -42,13 +63,19 @@ export const App: React.FC = () => {
       <div className="ui grid">
         <div className="ui row">
           <div className="eleven wide column">
-            <VideoDetail video={selectedVideo} />
+            <VideoDetail video={selectedVideo} onVideoEnd={onVideoEnd} />
           </div>
           <div className="five wide column">
+            <label>Search Results</label>
             <VideoList onVideoSelect={onVideoSelect} videos={videos} />
           </div>
         </div>
         <div className="ui row">
+          <label>Queue</label>
+          <VideoList onVideoSelect={onVideoSelectQueue} videos={videoQueue} />
+        </div>
+        <div className="ui row">
+          <label>History</label>
           <VideoList onVideoSelect={onVideoSelect} videos={videoHistory} />
         </div>
       </div>
