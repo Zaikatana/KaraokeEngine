@@ -53,7 +53,6 @@ export const App: React.FC = () => {
       setVideoHistory([...videoHistory]);
       setVideoQueue([...videoQueue]);
       setSelectedVideo(nextVideo);
-      
     }
   };
 
