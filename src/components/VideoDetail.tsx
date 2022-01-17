@@ -2,10 +2,12 @@ import React from "react";
 import { Video } from "../types/Video";
 import { YoutubePlayer } from "./YoutubePlayer";
 
-export const VideoDetail: React.FC<{
+type VideoDetailProps = {
   video: Video | null;
   onVideoEnd: () => void;
-}> = (props) => {
+};
+
+export const VideoDetail: React.FC<VideoDetailProps> = (props) => {
   const { video, onVideoEnd } = props;
 
   if (!video) {

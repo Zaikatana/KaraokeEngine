@@ -1,10 +1,12 @@
 import React from "react";
 import YouTube from "react-youtube";
 
-export const YoutubePlayer: React.FC<{
+type YoutubePlayerProps = {
   videoId: string;
   onVideoEnd: () => void;
-}> = (props) => {
+};
+
+export const YoutubePlayer: React.FC<YoutubePlayerProps> = (props) => {
   const { videoId, onVideoEnd } = props;
   const opts = {
     height: "390",

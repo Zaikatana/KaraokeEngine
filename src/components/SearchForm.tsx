@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 
-export const SearchForm: React.FC<{
-  onTermSubmit(term: string): Promise<void>;
-}> = (props) => {
+type SearchFormProps = {
+  onTermSubmit: (term: string) => Promise<void>;
+};
+
+export const SearchForm: React.FC<SearchFormProps> = (props) => {
   const { onTermSubmit } = props;
   const [term, setTerm] = useState<string>("");
 

@@ -1,11 +1,13 @@
 import React from "react";
 import { Video } from "../types/Video";
-import './VideoItem.css';
+import "./VideoItem.css";
 
-export const VideoItem: React.FC<{
+type VideoItemProps = {
   video: Video;
-  onVideoSelect(video: Video): void;
-}> = (props) => {
+  onVideoSelect: (video: Video) => void;
+};
+
+export const VideoItem: React.FC<VideoItemProps> = (props) => {
   const { video, onVideoSelect } = props;
 
   return (
