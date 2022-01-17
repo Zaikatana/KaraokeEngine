@@ -1,38 +1,26 @@
-import React, { useEffect } from "react";
+import React from "react";
+import YouTube from "react-youtube";
 
 export const YoutubePlayer: React.FC<{
   videoId: string;
   onVideoEnd: () => void;
 }> = (props) => {
   const { videoId, onVideoEnd } = props;
-  let player: YT.Player;
-  console.log(videoId);
+  const opts = {
+    height: "390",
+    width: "640",
+  };
 
-  const onPlayerReady = (event: any) => {
-    player.loadVideoById(videoId);
+  const onReady = (event: any) => {
     event.target.playVideo();
   };
 
-  const onStateChange = (event: any) => {
-    if (event.data === YT.PlayerState.ENDED) {
-      onVideoEnd();
-    }
-  }
-
-  const onYoutubeIframeAPIReady = () => {
-    player = new YT.Player("player", {
-      height: 390,
-      width: 640,
-      events: {
-        onReady: onPlayerReady,
-        onStateChange,
-      },
-    });
-  };
-
-  useEffect(() => {
-    onYoutubeIframeAPIReady();
-  });
-
-  return <div id="player" />;
+  return (
+    <YouTube
+      videoId={videoId}
+      opts={opts}
+      onReady={(event) => onReady(event)}
+      onEnd={() => onVideoEnd()}
+    />
+  );
 };
