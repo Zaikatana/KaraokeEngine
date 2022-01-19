@@ -3,14 +3,16 @@ import React, { useState } from "react";
 import { Video } from "../types/Video";
 import { VideoList } from "./VideoList";
 
-export const VideoTab: React.FC<{
+type VideoTabProps = {
   onVideoSelect: (video: Video) => void;
   onVideoSelectQueue: (video: Video) => void;
   videoSearch: Video[];
   videoQueue: Video[];
   videoHistory: Video[];
   isLoading: boolean;
-}> = (props) => {
+};
+
+export const VideoTab: React.FC<VideoTabProps> = (props) => {
   const [currentTab, setCurrentTab] = useState<string>("search");
   const {
     onVideoSelect,
