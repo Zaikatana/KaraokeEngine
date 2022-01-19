@@ -1,8 +1,8 @@
-import { AxiosInstance, AxiosResponse } from "axios";
+import { AxiosInstance } from "axios";
 import React, { useState } from "react";
 import { SearchForm } from "./components/SearchForm";
 import { VideoDetail } from "./components/VideoDetail";
-import { VideoList } from "./components/VideoList";
+import { VideoTab } from "./components/VideoTab";
 import YoutubeService from "./services/YoutubeService";
 import { Video } from "./types/Video";
 
@@ -11,6 +11,7 @@ export const App: React.FC = () => {
   const [videoHistory, setVideoHistory] = useState<Video[]>([]);
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
   const [videoQueue, setVideoQueue] = useState<Video[]>([]);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const youtubeService: AxiosInstance = YoutubeService.createYoutubeInstance();
 
   const channelIdStorage = [
@@ -23,19 +24,25 @@ export const App: React.FC = () => {
 
   const onTermSubmit = async (term: string): Promise<void> => {
     const searchResults = [];
-    let response: AxiosResponse;
     for (let channelId of channelIdStorage) {
-      response = await youtubeService.get("/search", {
+      const { data } = await youtubeService.get("/search", {
         params: {
           q: `${term} カラオケ`,
           channelId,
         },
       });
-      if (response.data.items) {
-        searchResults.push(response.data.items[0]);
+      if (data.items) {
+        searchResults.push(data.items[0]);
       }
     }
     setVideoSearch([...searchResults]);
+  };
+
+  const onTermSubmitContainer = (term: string): void => {
+    setIsLoading(true);
+    onTermSubmit(term).then(() => {
+      setIsLoading(false);
+    });
   };
 
   const onVideoSelect = (video: Video) => {
@@ -69,24 +76,22 @@ export const App: React.FC = () => {
 
   return (
     <div className="ui container">
-      <SearchForm onTermSubmit={onTermSubmit} />
+      <SearchForm onTermSubmit={onTermSubmitContainer} />
       <div className="ui grid">
         <div className="ui row">
           <div className="eleven wide column">
             <VideoDetail video={selectedVideo} onVideoEnd={onVideoEnd} />
           </div>
           <div className="five wide column">
-            <label>Search Results</label>
-            <VideoList onVideoSelect={onVideoSelect} videos={videoSearch} />
+            <VideoTab
+              onVideoSelect={onVideoSelect}
+              onVideoSelectQueue={onVideoSelectQueue}
+              videoHistory={videoHistory}
+              videoQueue={videoQueue}
+              videoSearch={videoSearch}
+              isLoading={isLoading}
+            />
           </div>
-        </div>
-        <div className="ui row">
-          <label>Queue</label>
-          <VideoList onVideoSelect={onVideoSelectQueue} videos={videoQueue} />
-        </div>
-        <div className="ui row">
-          <label>History</label>
-          <VideoList onVideoSelect={onVideoSelect} videos={videoHistory} />
         </div>
       </div>
     </div>

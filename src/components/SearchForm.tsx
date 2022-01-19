@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 type SearchFormProps = {
-  onTermSubmit: (term: string) => Promise<void>;
+  onTermSubmit: (term: string) => void;
 };
 
 export const SearchForm: React.FC<SearchFormProps> = (props) => {
