@@ -31,7 +31,7 @@ export const App: React.FC = () => {
           channelId,
         },
       });
-      if (data.items) {
+      if (data.items.length > 0) {
         searchResults.push(data.items[0]);
       }
     }

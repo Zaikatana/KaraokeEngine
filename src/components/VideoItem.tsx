@@ -23,3 +23,15 @@ export const VideoItem: React.FC<VideoItemProps> = (props) => {
     </div>
   );
 };
+
+export const VideoItemEmpty: React.FC = () => {
+  return (
+    <div className="video-item item">
+      <div className="content">
+        <div className="header">
+          Nothing in list! Search for songs using the search bar above!
+        </div>
+      </div>
+    </div>
+  );
+};

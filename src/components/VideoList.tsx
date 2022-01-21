@@ -1,6 +1,6 @@
 import React from "react";
 import { Video } from "../types/Video";
-import { VideoItem } from "./VideoItem";
+import { VideoItem, VideoItemEmpty } from "./VideoItem";
 
 type VideoListProps = {
   videos: Video[];
@@ -9,6 +9,10 @@ type VideoListProps = {
 
 export const VideoList: React.FC<VideoListProps> = (props) => {
   const { videos, onVideoSelect } = props;
+
+  if (videos.length === 0) {
+    return <VideoItemEmpty />
+  }
 
   const renderedList = videos.map((video: Video, i: number) => {
     return (

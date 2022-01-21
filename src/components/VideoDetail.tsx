@@ -9,9 +9,25 @@ type VideoDetailProps = {
 
 export const VideoDetail: React.FC<VideoDetailProps> = (props) => {
   const { video, onVideoEnd } = props;
+  console.log(video?.id.videoId);
 
   if (!video) {
-    return <div>Description</div>;
+    return (
+      <div>
+        <div className="ui embeded">
+          <img
+            height="390"
+            width="100%"
+            src="https://api.time.com/wp-content/uploads/2019/09/karaoke-mic.jpg?w=800&quality=85"
+            alt="..."
+          />
+        </div>
+        <div className="ui segment">
+          <h4 className="ui header">No video playing.</h4>
+          <p>Start searching for a song on the search bar above!</p>
+        </div>
+      </div>
+    );
   }
 
   return (
