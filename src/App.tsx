@@ -12,6 +12,7 @@ export const App: React.FC = () => {
   const [selectedVideo, setSelectedVideo] = useState<Video | null>(null);
   const [videoQueue, setVideoQueue] = useState<Video[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [showMessage, setShowMessage] = useState<boolean>(false);
   const youtubeService: AxiosInstance = YoutubeService.createYoutubeInstance();
 
   const onTermSubmit = async (term: string): Promise<void> => {
@@ -42,6 +43,10 @@ export const App: React.FC = () => {
     } else {
       videoQueue.push(video);
       setVideoQueue([...videoQueue]);
+      setShowMessage(true);
+      setTimeout(() => {
+        setShowMessage(false);
+      }, 5000);
     }
   };
 
@@ -66,6 +71,9 @@ export const App: React.FC = () => {
   return (
     <div className="ui container">
       <SearchForm onTermSubmit={onTermSubmitContainer} />
+      <div className={`ui message ${showMessage ? "" : "hidden"}`}>
+        <div className="header">New Song added to queue!</div>
+      </div>
       <div className="ui grid">
         <div className="ui row">
           <div className="eleven wide column">
