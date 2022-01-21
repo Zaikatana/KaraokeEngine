@@ -14,26 +14,15 @@ export const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const youtubeService: AxiosInstance = YoutubeService.createYoutubeInstance();
 
-  const channelIdStorage = [
-    "UC1tk9F5-MGXEq4LWnjmrtpA",
-    "UCZXOq4XxCsSL7VPtXUU435w",
-    "UCZ3ryrdsdqezi2q-AfRw6Rw",
-    "UCuhnZ_NxJ8Yhuhv_t7P7GnA",
-    "",
-  ];
-
   const onTermSubmit = async (term: string): Promise<void> => {
     const searchResults = [];
-    for (let channelId of channelIdStorage) {
-      const { data } = await youtubeService.get("/search", {
-        params: {
-          q: `${term} カラオケ`,
-          channelId,
-        },
-      });
-      if (data.items.length > 0) {
-        searchResults.push(data.items[0]);
-      }
+    const { data } = await youtubeService.get("/search", {
+      params: {
+        q: `${term} カラオケ`,
+      },
+    });
+    if (data.items.length > 0) {
+      searchResults.push(data.items);
     }
     setVideoSearch([...searchResults]);
   };
