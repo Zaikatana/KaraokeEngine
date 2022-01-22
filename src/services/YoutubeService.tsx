@@ -7,7 +7,7 @@ export default class YoutubeService {
       baseURL: "https://www.googleapis.com/youtube/v3/",
       params: {
         part: "snippet",
-        maxResults: 10,
+        maxResults: 5,
         key: REACT_APP_KEY,
       },
     });

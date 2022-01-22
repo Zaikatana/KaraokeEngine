@@ -4,12 +4,11 @@ import { YoutubePlayer } from "./YoutubePlayer";
 
 type VideoDetailProps = {
   video: Video | null;
-  onVideoEnd: () => void;
+  onVideoEnd: (skipped: boolean) => void;
 };
 
 export const VideoDetail: React.FC<VideoDetailProps> = (props) => {
   const { video, onVideoEnd } = props;
-  console.log(video?.id.videoId);
 
   if (!video) {
     return (
@@ -33,11 +32,14 @@ export const VideoDetail: React.FC<VideoDetailProps> = (props) => {
   return (
     <div>
       <div className="ui embed">
-        <YoutubePlayer videoId={video.id.videoId} onVideoEnd={onVideoEnd} />
+        <YoutubePlayer videoId={video.id.videoId} onVideoEnd={() => onVideoEnd(false)} />
       </div>
       <div className="ui segment">
         <h4 className="ui header">{video.snippet.title}</h4>
         <p>{video.snippet.description}</p>
+        <button className="ui button" onClick={() => onVideoEnd(true)}>
+          Skip current song
+        </button>
       </div>
     </div>
   );

@@ -1,6 +1,7 @@
 import React from "react";
 import { Video } from "../types/Video";
 import { VideoItem, VideoItemEmpty } from "./VideoItem";
+import "./css/VideoList.css";
 
 type VideoListProps = {
   videos: Video[];
@@ -23,5 +24,5 @@ export const VideoList: React.FC<VideoListProps> = (props) => {
       />
     );
   });
-  return <div className="ui relaxed divided list">{renderedList}</div>;
+  return <div className="video-list ui relaxed divided list">{renderedList}</div>;
 };

@@ -1,6 +1,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useState } from "react";
 import { Video } from "../types/Video";
+import { Tab } from "./enums";
 import { VideoList } from "./VideoList";
 
 type VideoTabProps = {
@@ -13,7 +14,7 @@ type VideoTabProps = {
 };
 
 export const VideoTab: React.FC<VideoTabProps> = (props) => {
-  const [currentTab, setCurrentTab] = useState<string>("search");
+  const [currentTab, setCurrentTab] = useState<Tab>(Tab.SEARCH);
   const {
     onVideoSelect,
     onVideoSelectQueue,
@@ -27,23 +28,23 @@ export const VideoTab: React.FC<VideoTabProps> = (props) => {
     <>
       <div className="ui top attached tabular menu">
         <a
-          className={currentTab === "search" ? "active item" : "item"}
-          data-tab="search"
-          onClick={() => setCurrentTab("search")}
+          className={currentTab === Tab.SEARCH ? "active item" : "item"}
+          data-tab={Tab.SEARCH}
+          onClick={() => setCurrentTab(Tab.SEARCH)}
         >
           Search Results
         </a>
         <a
-          className={currentTab === "queue" ? "active item" : "item"}
-          data-tab="queue"
-          onClick={() => setCurrentTab("queue")}
+          className={currentTab === Tab.QUEUE ? "active item" : "item"}
+          data-tab={Tab.QUEUE}
+          onClick={() => setCurrentTab(Tab.QUEUE)}
         >
           Queue
         </a>
         <a
-          className={currentTab === "history" ? "active item" : "item"}
-          data-tab="history"
-          onClick={() => setCurrentTab("history")}
+          className={currentTab === Tab.HISTORY ? "active item" : "item"}
+          data-tab={Tab.HISTORY}
+          onClick={() => setCurrentTab(Tab.HISTORY)}
         >
           History
         </a>
@@ -51,24 +52,24 @@ export const VideoTab: React.FC<VideoTabProps> = (props) => {
       <div
         className={`ui bottom attached tab segment ${
           isLoading ? "loading" : ""
-        } ${currentTab === "search" ? "active" : ""}`}
-        data-tab="search"
+        } ${currentTab === Tab.SEARCH ? "active" : ""}`}
+        data-tab={Tab.SEARCH}
       >
         <VideoList onVideoSelect={onVideoSelect} videos={videoSearch} />
       </div>
       <div
         className={`ui bottom attached tab segment ${
-          currentTab === "queue" ? "active" : ""
+          currentTab === Tab.QUEUE ? "active" : ""
         }`}
-        data-tab="queue"
+        data-tab={Tab.QUEUE}
       >
         <VideoList onVideoSelect={onVideoSelectQueue} videos={videoQueue} />
       </div>
       <div
         className={`ui bottom attached tab segment ${
-          currentTab === "history" ? "active" : ""
+          currentTab === Tab.HISTORY ? "active" : ""
         }`}
-        data-tab="history"
+        data-tab={Tab.HISTORY}
       >
         <VideoList onVideoSelect={onVideoSelect} videos={videoHistory} />
       </div>

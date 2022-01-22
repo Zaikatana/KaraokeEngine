@@ -1,7 +1,9 @@
 import { AxiosInstance } from "axios";
 import React, { useState } from "react";
+import { Message } from "./components/enums";
 import { SearchForm } from "./components/SearchForm";
 import { VideoDetail } from "./components/VideoDetail";
+import { VideoMessage } from "./components/VideoMessage";
 import { VideoTab } from "./components/VideoTab";
 import YoutubeService from "./services/YoutubeService";
 import { Video } from "./types/Video";
@@ -13,17 +15,18 @@ export const App: React.FC = () => {
   const [videoQueue, setVideoQueue] = useState<Video[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showMessage, setShowMessage] = useState<boolean>(false);
+  const [message, setMessage] = useState<Message>(Message.EMPTY);
   const youtubeService: AxiosInstance = YoutubeService.createYoutubeInstance();
 
   const onTermSubmit = async (term: string): Promise<void> => {
-    const searchResults = [];
+    let searchResults = [];
     const { data } = await youtubeService.get("/search", {
       params: {
         q: `${term} カラオケ`,
       },
     });
     if (data.items.length > 0) {
-      searchResults.push(data.items);
+      searchResults = data.items;
     }
     setVideoSearch([...searchResults]);
   };
@@ -43,37 +46,47 @@ export const App: React.FC = () => {
     } else {
       videoQueue.push(video);
       setVideoQueue([...videoQueue]);
+      setMessage(Message.VIDEO_ADDED);
       setShowMessage(true);
       setTimeout(() => {
         setShowMessage(false);
+        setMessage(Message.EMPTY);
       }, 5000);
     }
   };
 
   const onVideoSelectQueue = (video: Video) => {
-    videoQueue.shift();
+    videoQueue.splice(videoQueue.indexOf(video));
     setVideoQueue([...videoQueue]);
     videoHistory.push(video);
     setVideoHistory([...videoHistory]);
     setSelectedVideo(video);
   };
 
-  const onVideoEnd = () => {
+  const onVideoEnd = (skipped: boolean) => {
     const nextVideo = videoQueue.shift();
     if (nextVideo) {
       videoHistory.push(nextVideo);
       setVideoHistory([...videoHistory]);
       setVideoQueue([...videoQueue]);
       setSelectedVideo(nextVideo);
+      if (skipped) {
+        setMessage(Message.VIDEO_SKIPPED);
+        setShowMessage(true);
+        setTimeout(() => {
+          setShowMessage(false);
+          setMessage(Message.EMPTY);
+        }, 5000);
+      }
+    } else {
+      setSelectedVideo(null);
     }
   };
 
   return (
     <div className="ui container">
       <SearchForm onTermSubmit={onTermSubmitContainer} />
-      <div className={`ui message ${showMessage ? "" : "hidden"}`}>
-        <div className="header">New Song added to queue!</div>
-      </div>
+      <VideoMessage showMessage={showMessage} message={message} />
       <div className="ui grid">
         <div className="ui row">
           <div className="eleven wide column">

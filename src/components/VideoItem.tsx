@@ -1,6 +1,6 @@
 import React from "react";
 import { Video } from "../types/Video";
-import "./VideoItem.css";
+import "./css/VideoItem.css";
 
 type VideoItemProps = {
   video: Video;
