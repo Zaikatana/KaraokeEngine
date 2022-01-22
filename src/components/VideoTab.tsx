@@ -37,14 +37,22 @@ export const VideoTab: React.FC<VideoTabProps> = (props) => {
         <a
           className={currentTab === Tab.QUEUE ? "active item" : "item"}
           data-tab={Tab.QUEUE}
-          onClick={() => setCurrentTab(Tab.QUEUE)}
+          onClick={() => {
+            if (!isLoading) {
+              setCurrentTab(Tab.QUEUE);
+            }
+          }}
         >
           Queue
         </a>
         <a
           className={currentTab === Tab.HISTORY ? "active item" : "item"}
           data-tab={Tab.HISTORY}
-          onClick={() => setCurrentTab(Tab.HISTORY)}
+          onClick={() => {
+            if (!isLoading) {
+              setCurrentTab(Tab.HISTORY);
+            }
+          }}
         >
           History
         </a>
