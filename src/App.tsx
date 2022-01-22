@@ -16,10 +16,12 @@ export const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showMessage, setShowMessage] = useState<boolean>(false);
   const [message, setMessage] = useState<Message>(Message.EMPTY);
-  const youtubeService: AxiosInstance = YoutubeService.createYoutubeInstance();
 
   const onTermSubmit = async (term: string, source: string): Promise<void> => {
     let searchResults = [];
+    const youtubeService: AxiosInstance = YoutubeService.createYoutubeInstance(
+      source === "" ? 5 : 10
+    );
     const { data } = await youtubeService.get("/search", {
       params: {
         q: `${term} カラオケ`,
