@@ -18,11 +18,12 @@ export const App: React.FC = () => {
   const [message, setMessage] = useState<Message>(Message.EMPTY);
   const youtubeService: AxiosInstance = YoutubeService.createYoutubeInstance();
 
-  const onTermSubmit = async (term: string): Promise<void> => {
+  const onTermSubmit = async (term: string, source: string): Promise<void> => {
     let searchResults = [];
     const { data } = await youtubeService.get("/search", {
       params: {
         q: `${term} カラオケ`,
+        channelId: source,
       },
     });
     if (data.items.length > 0) {
@@ -31,9 +32,9 @@ export const App: React.FC = () => {
     setVideoSearch([...searchResults]);
   };
 
-  const onTermSubmitContainer = (term: string): void => {
+  const onTermSubmitContainer = (term: string, source: string): void => {
     setIsLoading(true);
-    onTermSubmit(term).then(() => {
+    onTermSubmit(term, source).then(() => {
       setIsLoading(false);
     });
   };
