@@ -41,6 +41,15 @@ export const SearchForm: React.FC<SearchFormProps> = (props) => {
             {channelOptions}
           </select>
         </div>
+        <span>
+          J-Karaoke System v1.0 - Created by Brian Luc &nbsp;
+          <a
+            href="https://www.flaticon.com/free-icons/microphone"
+            title="microphone icons"
+          >
+            Microphone icon created by Freepik - Flaticon
+          </a>
+        </span>
       </form>
     </div>
   );

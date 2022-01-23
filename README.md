@@ -1,46 +1,22 @@
-# Getting Started with Create React App
+# J-Karaoke System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project was developed with a TypeScript and ReactJS stack. It utilises the YouTube Search & iFrame APIs to display Karaoke videos. The main language for these songs is currently Japanese, with potential to include western and chinese song channels in the future.
 
-## Available Scripts
+## Purpose
+This web application was built with the purpose of allowing users to have an easier time searching for Japanese Karaoke music on YouTube as well as streamlining features found at Karaoke bars (Queueing songs, Viewing History, etc.)
+While this project is still very much a work in progress (UI could be better, Mobile support, ENG/CN/KR song support, etc.), it has pretty much reached a Minimal Viable Product (MVP) status.
+This web application is built as a fun and non-profitable project to add to Brian Luc's (the Author) portfolio.
 
-In the project directory, you can run:
+## Features
+- Song Search
+- Search a song through the following pre-set channels (More to be included in the future)
+    - [カラオケ歌っちゃ王] (https://www.youtube.com/channel/UC1tk9F5-MGXEq4LWnjmrtpA)
+    - [JOYSOUND CHANNEL] (https://www.youtube.com/user/joysoundchannel)
+    - [生音風カラオケ屋] (https://www.youtube.com/c/%E7%94%9F%E9%9F%B3%E9%A2%A8%E3%82%AB%E3%83%A9%E3%82%AA%E3%82%B1%E5%B1%8B%E3%81%95%E3%82%93)
+    - [G reen] (https://www.youtube.com/c/Green3)
+- Add searched songs to a queue. When a song ends, the next song in the queue plays
+- View song history
+- Skip songs
 
-### `yarn start`
-
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `yarn build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `yarn eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Third-Party Libraries used
+- [react-youtube] - Simple React component acting as a thin layer over the YouTube IFrame Player API (https://github.com/tjallingt/react-youtube)  

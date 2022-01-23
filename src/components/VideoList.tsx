@@ -12,7 +12,11 @@ export const VideoList: React.FC<VideoListProps> = (props) => {
   const { videos, onVideoSelect } = props;
 
   if (videos.length === 0) {
-    return <VideoItemEmpty />
+    return (
+      <div className="video-list ui relaxed divided list">
+        <VideoItemEmpty />
+      </div>
+    );
   }
 
   const renderedList = videos.map((video: Video, i: number) => {
@@ -24,5 +28,7 @@ export const VideoList: React.FC<VideoListProps> = (props) => {
       />
     );
   });
-  return <div className="video-list ui relaxed divided list">{renderedList}</div>;
+  return (
+    <div className="video-list ui relaxed divided list">{renderedList}</div>
+  );
 };
