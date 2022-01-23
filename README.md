@@ -4,7 +4,9 @@ This project was developed with a TypeScript and ReactJS stack. It utilises the 
 
 ## Purpose
 This web application was built with the purpose of allowing users to have an easier time searching for Japanese Karaoke music on YouTube as well as streamlining features found at Karaoke bars (Queueing songs, Viewing History, etc.)
+
 While this project is still very much a work in progress (UI could be better, Mobile support, ENG/CN/KR song support, etc.), it has pretty much reached a Minimal Viable Product (MVP) status.
+
 This web application is built as a fun and non-profitable project to add to Brian Luc's (the Author) portfolio.
 
 ## Features
