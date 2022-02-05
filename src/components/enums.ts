@@ -9,3 +9,17 @@ export enum Tab {
     QUEUE = "queue",
     HISTORY = "history",
 }
+
+export enum KaraokeTerm {
+    JAPAN = "カラオケ",
+    KOREA = "가라오케",
+    ENGLISH = "karaoke",
+    CHINESE = "卡拉OK",
+}
+
+export enum Language {
+    JAPAN = "japan",
+    KOREA = "korea",
+    ENGLISH = "english",
+    CHINESE = "chinese",
+}

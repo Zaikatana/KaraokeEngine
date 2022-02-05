@@ -1,6 +1,6 @@
 import { AxiosInstance } from "axios";
 import React, { useState } from "react";
-import { Message } from "./components/enums";
+import { KaraokeTerm, Language, Message } from "./components/enums";
 import { SearchForm } from "./components/SearchForm";
 import { VideoDetail } from "./components/VideoDetail";
 import { VideoMessage } from "./components/VideoMessage";
@@ -17,26 +17,53 @@ export const App: React.FC = () => {
   const [showMessage, setShowMessage] = useState<boolean>(false);
   const [message, setMessage] = useState<Message>(Message.EMPTY);
 
-  const onTermSubmit = async (term: string, source: string): Promise<void> => {
+  const onTermSubmit = async (
+    term: string,
+    source: string,
+    language: string
+  ): Promise<void> => {
     let searchResults = [];
     const youtubeService: AxiosInstance = YoutubeService.createYoutubeInstance(
       source === "" ? 5 : 10
     );
+    let karaokeTerm = "";
+    switch (language) {
+      case Language.JAPAN:
+        karaokeTerm = KaraokeTerm.JAPAN;
+        break;
+      case Language.KOREA:
+        karaokeTerm = KaraokeTerm.KOREA;
+        break;
+      case Language.CHINESE:
+        karaokeTerm = KaraokeTerm.CHINESE;
+        break;
+      case Language.ENGLISH:
+        karaokeTerm = KaraokeTerm.ENGLISH;
+        break;
+      default:
+        break;
+    }
+
     const { data } = await youtubeService.get("/search", {
       params: {
-        q: `${term} カラオケ`,
+        q: `${term} ${karaokeTerm}`,
         channelId: source,
       },
     });
     if (data.items.length > 0) {
+      console.log(data.items);
       searchResults = data.items;
     }
     setVideoSearch([...searchResults]);
   };
 
-  const onTermSubmitContainer = (term: string, source: string): void => {
+  const onTermSubmitContainer = (
+    term: string,
+    source: string,
+    language: string
+  ): void => {
     setIsLoading(true);
-    onTermSubmit(term, source).then(() => {
+    onTermSubmit(term, source, language).then(() => {
       setIsLoading(false);
     });
   };
