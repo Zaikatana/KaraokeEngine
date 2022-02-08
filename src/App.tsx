@@ -1,5 +1,5 @@
 import { AxiosInstance } from "axios";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { KaraokeTerm, Language, Message } from "./components/enums";
 import { SearchForm } from "./components/SearchForm";
 import { VideoDetail } from "./components/VideoDetail";
@@ -16,6 +16,13 @@ export const App: React.FC = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [showMessage, setShowMessage] = useState<boolean>(false);
   const [message, setMessage] = useState<Message>(Message.EMPTY);
+  const [isMobile, setIsMobile] = useState<boolean>(false);
+
+  useEffect(() => {
+    setIsMobile(
+      window.matchMedia("only screen and (max-width: 760px)").matches
+    );
+  }, [isMobile]);
 
   const onTermSubmit = async (
     term: string,
@@ -119,10 +126,10 @@ export const App: React.FC = () => {
       <VideoMessage showMessage={showMessage} message={message} />
       <div className="ui grid">
         <div className="ui row">
-          <div className="eleven wide column">
+          <div className={isMobile?"sixteen wide column":"eleven wide column"}>
             <VideoDetail video={selectedVideo} onVideoEnd={onVideoEnd} />
           </div>
-          <div className="five wide column">
+          <div className={isMobile?"sixteen wide column":"five wide column"}>
             <VideoTab
               onVideoSelect={onVideoSelect}
               onVideoSelectQueue={onVideoSelectQueue}

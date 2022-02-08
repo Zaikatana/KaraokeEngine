@@ -15,7 +15,6 @@ export const VideoDetail: React.FC<VideoDetailProps> = (props) => {
       <div>
         <div className="ui embeded">
           <img
-            height="390"
             width="100%"
             src="https://api.time.com/wp-content/uploads/2019/09/karaoke-mic.jpg?w=800&quality=85"
             alt="..."
@@ -32,7 +31,10 @@ export const VideoDetail: React.FC<VideoDetailProps> = (props) => {
   return (
     <div>
       <div className="ui embed">
-        <YoutubePlayer videoId={video.id.videoId} onVideoEnd={() => onVideoEnd(false)} />
+        <YoutubePlayer
+          videoId={video.id.videoId}
+          onVideoEnd={() => onVideoEnd(false)}
+        />
       </div>
       <div className="ui segment">
         <h4 className="ui header">{video.snippet.title}</h4>
